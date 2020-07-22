@@ -10,11 +10,13 @@
 # Step 3: Configure iptables firewall
 # Step 4: Configure unattended upgrades
 # Step 5: Update packages
+# Step 6: Change timezone
 #############################################
 
 USER="" # Create this user with sudo priveleges
 USER_SSH_KEY="" # Add public key for new user
 PORTS_TO_OPEN=22,80 # Allow access to these ports only. Use comma separated values without whitespaces
+TIMEZONE="America/Anchorage" # Specify desired timezone
 
 function main() {
     create_user
@@ -22,6 +24,12 @@ function main() {
     iptables_config
     unattended_upgrades
     update_packages
+    change_timezone
+}
+
+function change_timezone() {
+    # For a list of timezones type the following command in the console: timedatectl list-timezones
+    timedatectl set-timezone $TIMEZONE
 }
 
 function create_user() {
