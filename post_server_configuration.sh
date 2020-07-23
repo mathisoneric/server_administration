@@ -14,6 +14,7 @@
 #############################################
 
 USER="" # Create this user with sudo priveleges
+USER_GROUPS="sudo,www" # Groups to add user to. Use comma separated values without whitespaces
 USER_SSH_KEY="" # Add public key for new user
 PORTS_TO_OPEN=22,80 # Allow access to these ports only. Use comma separated values without whitespaces
 TIMEZONE="America/Anchorage" # Specify desired timezone
@@ -34,7 +35,7 @@ function change_timezone() {
 
 function create_user() {
     adduser --disabled-password --gecos "" $USER
-    usermod -aG sudo $USER
+    usermod -aG $USER_GROUPS $USER
     mkdir /home/$USER/.ssh/
     echo $USER_SSH_KEY > /home/$USER/.ssh/authorized_keys
     chmod 600 /home/$USER/.ssh/authorized_keys
